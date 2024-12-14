@@ -1,7 +1,7 @@
 ﻿using tyuiu.cources.programming.interfaces.Sprint5;
 namespace Tyuiu.GairabekovMR.Sprint5.Task2.V5.Lib
 {
-    public class DataService : ISprint5Task2V5
+    public class DataService : ISprint5Task2V16
     {
         public string SaveToFileTextData(int[,] matrix)
         {
