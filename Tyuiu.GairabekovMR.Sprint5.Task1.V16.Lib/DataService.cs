@@ -1,61 +1,43 @@
-﻿using tyuiu.cources.programming.interfaces.Sprint5;
-namespace Tyuiu.GairabekovMR.Sprint5.Task2.V5.Lib
+﻿using System.IO;
+using tyuiu.cources.programming.interfaces.Sprint5;
+namespace Tyuiu.GairabekovMR.Sprint5.Task1.V16.Lib
 {
-    public class DataService : ISprint5Task2V16
+    public class DataService : ISprint5Task1V16
     {
-        public string SaveToFileTextData(int[,] matrix)
+        public string SaveToFileTextData(int startValue, int stopValue)
         {
-            string path = Path.Combine(Path.GetTempPath(), "OutPutFileTask2.csv");
-
+            string path = Path.Combine(Path.GetTempPath(), "OutPutFileTask1.txt");
             FileInfo fileInfo = new FileInfo(path);
             bool fileExists = fileInfo.Exists;
-
-
             if (fileExists)
             {
                 File.Delete(path);
             }
-            int column, row;
-            row = matrix.GetUpperBound(0) + 1;
-            column = matrix.Length / row;
-            for (int i = 0; i < row; i++)
-            {
-                for (int j = 0; j < column; j++)
-                {
-                    if (matrix[i, j] % 2 != 0)
-                    {
-                        matrix[i, j] = 0;
-                    }
-                }
-            }
-            string str = "";
-            for (int i = 0; i < row; i++)
-            {
-                for (int j = 0; j < column; j++)
-                {
-                    if (j != column - 1)
-                    {
-                        str = str + matrix[i, j] + ";";
+            double y;
 
-                    }
-                    else
-                    {
-                        str = str + matrix[i, j];
-                    }
+            for (double x = startValue; x <= stopValue; x++)
+            {
+                int numDigitsAfterPoint = 2;
 
-                }
-                if (i != row - 1)
+                y = Math.Sin(x) + ((2.0 * x) / 3.0) - (Math.Cos(x) * 4.0 * x);
+                y = Math.Round(y, 2);
+                string result = y.ToString("0." + new string('0', numDigitsAfterPoint));
+
+                if (x != stopValue)
                 {
-                    File.AppendAllText(path, str + Environment.NewLine);
+                    File.AppendAllText(path, result + Environment.NewLine);
                 }
                 else
                 {
-                    File.AppendAllText(path, str);
+                    File.AppendAllText(path, result);
                 }
-                str = "";
+                if (double.IsInfinity(y) || double.IsNaN(y))
+                {
+                    y = 0;
+                }
+
             }
             return path;
-
         }
     }
 }
